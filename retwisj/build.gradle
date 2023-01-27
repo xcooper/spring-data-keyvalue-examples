@@ -13,37 +13,37 @@ archivesBaseName = "retwisj"
 description = 'Retwis-J'
 
 repositories {
-	jcenter()
-	mavenCentral()
+    jcenter()
+    mavenCentral()
 }
 
 dependencies {
-	//implementation platform("org.springframework.data:spring-data-bom:2022.0.1")
-	implementation "org.slf4j:slf4j-api:$slf4jVersion"
-	implementation "org.slf4j:jcl-over-slf4j:$slf4jVersion"
-	runtimeOnly "org.slf4j:slf4j-log4j12:$slf4jVersion"
-	runtimeOnly "log4j:log4j:$log4jVersion"
-	implementation "redis.clients:jedis:2.1.0"
-	implementation "org.codehaus.jackson:jackson-core-asl:$jacksonVersion"
-	implementation "org.codehaus.jackson:jackson-mapper-asl:$jacksonVersion"
-	implementation "javax.servlet:com.springsource.javax.servlet.jsp.jstl:1.2.0"
-	implementation ("org.springframework.data:spring-data-redis:$springRedisVersion") {
+    //implementation platform("org.springframework.data:spring-data-bom:2022.0.1")
+    implementation "org.slf4j:slf4j-api:$slf4jVersion"
+    implementation "org.slf4j:jcl-over-slf4j:$slf4jVersion"
+    runtimeOnly "org.slf4j:slf4j-log4j12:$slf4jVersion"
+    runtimeOnly "log4j:log4j:$log4jVersion"
+    implementation "redis.clients:jedis:2.1.0"
+    implementation "org.codehaus.jackson:jackson-core-asl:$jacksonVersion"
+    implementation "org.codehaus.jackson:jackson-mapper-asl:$jacksonVersion"
+    implementation "javax.servlet:com.springsource.javax.servlet.jsp.jstl:1.2.0"
+    implementation ("org.springframework.data:spring-data-redis:$springRedisVersion") {
         exclude group: 'commons-logging'
     }
-	implementation "org.springframework:spring-webmvc:$springVersion"
-	implementation "javax.inject:com.springsource.javax.inject:1.0.0"
-	compileOnly "javax.servlet:com.springsource.javax.servlet:2.4.0"
-	compileOnly "javax.servlet:com.springsource.javax.servlet.jsp:2.1.0"
-	implementation "javax.servlet:com.springsource.javax.servlet.jsp.jstl:1.2.0"
-	implementation "org.apache.taglibs:com.springsource.org.apache.taglibs.standard:1.1.2"
-	// Testing
-	testImplementation "junit:junit:$junitVersion"
-	testImplementation "org.springframework:spring-test:$springVersion"
-	testImplementation "org.mockito:mockito-all:$mockitoVersion"
+    implementation "org.springframework:spring-webmvc:$springVersion"
+    implementation "javax.inject:com.springsource.javax.inject:1.0.0"
+    compileOnly "javax.servlet:com.springsource.javax.servlet:2.4.0"
+    compileOnly "javax.servlet:com.springsource.javax.servlet.jsp:2.1.0"
+    implementation "javax.servlet:com.springsource.javax.servlet.jsp.jstl:1.2.0"
+    implementation "org.apache.taglibs:com.springsource.org.apache.taglibs.standard:1.1.2"
+    // Testing
+    testImplementation "junit:junit:$junitVersion"
+    testImplementation "org.springframework:spring-test:$springVersion"
+    testImplementation "org.mockito:mockito-all:$mockitoVersion"
 }
 
 war {
-  archiveName = baseName + "." + extension
+    archiveName = baseName + "." + extension
 }
 
 defaultTasks 'build'

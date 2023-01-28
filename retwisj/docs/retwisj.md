@@ -10,10 +10,10 @@ simple, social-like messaging service based entirely on Redis.
 
 To succesfully build and run RetwisJ, one needs:
 
-- JDK 6.0
+- JDK 8.0
 - Redis 2.4.x (Redis 2.2.x/2.0.x should work as well)
 - Spring Data Redis 1.0 or higher
-- A servlet 2.4 container (such as Tomcat 6)
+- A servlet 2.4 container (such as Tomcat 8)
 
 The version numbers above have been used to develop and test the demo.
 Other versions (especially higher ones) may or may not work.

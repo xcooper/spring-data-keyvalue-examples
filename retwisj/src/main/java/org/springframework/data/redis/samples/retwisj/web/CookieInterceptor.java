@@ -15,32 +15,31 @@
  */
 package org.springframework.data.redis.samples.retwisj.web;
 
-import javax.inject.Inject;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.data.redis.samples.retwisj.RetwisSecurity;
 import org.springframework.data.redis.samples.retwisj.redis.RetwisRepository;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.HandlerInterceptor;
+
+import javax.inject.Inject;
 
 /**
  * Basic interceptor that checks that each request has been authenticated against Redis.
- * 
+ *
  * @author Costin Leau
  */
-public class CookieInterceptor extends HandlerInterceptorAdapter {
+public class CookieInterceptor implements HandlerInterceptor {
 
-	public static final String RETWIS_COOKIE = "retwisauth";
+    public static final String RETWIS_COOKIE = "retwisauth";
 
-	@Inject
-	private RetwisRepository twitter;
+    @Inject
+    private RetwisRepository twitter;
 
-	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		// all non-root requests get analyzed
-		Cookie[] cookies = request.getCookies();
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        // all non-root requests get analyzed
+        Cookie[] cookies = request.getCookies();
 
 		if (!ObjectUtils.isEmpty(cookies)) {
 			for (Cookie cookie : cookies) {
@@ -57,7 +56,6 @@ public class CookieInterceptor extends HandlerInterceptorAdapter {
 		return true;
 	}
 
-	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
 		RetwisSecurity.clean();

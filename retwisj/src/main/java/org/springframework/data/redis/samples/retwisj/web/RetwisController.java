@@ -15,10 +15,8 @@
  */
 package org.springframework.data.redis.samples.retwisj.web;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.samples.retwisj.Post;
 import org.springframework.data.redis.samples.retwisj.Range;
@@ -130,12 +128,12 @@ public class RetwisController {
 		return "home";
 	}
 
-	@RequestMapping(value = "/!{name}", method = RequestMethod.POST)
-	public String posts(@PathVariable String name, WebPost post, Model model, HttpServletRequest request) {
-		checkUser(name);
-		retwis.post(name, post);
-		return "redirect:/!" + name;
-	}
+    @RequestMapping(value = "/!{name}", method = RequestMethod.POST)
+    public String posts(@PathVariable String name, WebPost post) {
+        checkUser(name);
+        retwis.post(name, post);
+        return "redirect:/!" + name;
+    }
 
 	@RequestMapping("/!{name}/follow")
 	public String follow(@PathVariable String name) {

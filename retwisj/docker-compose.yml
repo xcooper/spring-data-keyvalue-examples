@@ -1,6 +1,6 @@
 services:
     tomcat:
-        image: localhost/retwisj
+        image: retwisj
         depends_on:
             - redis
         ports:

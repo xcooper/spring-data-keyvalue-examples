@@ -8,10 +8,10 @@ simple, social-like messaging service based entirely on Redis.
 
 ## Requirements
 
-To succesfully build and run RetwisJ, one needs:
+To successfully build and run RetwisJ, one needs:
 
 - JDK 8.0
-- Redis 2.4.x (Redis 2.2.x/2.0.x should work as well)
+- Redis 6.0.x (incl. in docker compose config)
 - Spring Data Redis 1.0 or higher
 - A servlet 2.4 container (such as Tomcat 8)
 
@@ -31,32 +31,22 @@ the artifact, simply type at the command line:
 
 which will create a WAR ready to be deployed into a container.
 
-<div class="note">
-
-If Gradle is installed, one can use
-
-gradle
-
-instead of
-
-gradlew
-
-in the command above.
-
-</div>
+> If Gradle is installed, one can use `gradle` instead of `gradlew` in the command above.
 
 Once the WAR is created, deploy it into your container of choice and
 access it using a web browser (typically by accessing
 <http://localhost:8080/retwisj>). Goes without saying that before
 accessing the application, Redis should be started.
 
+> There is a docker compose config for easily bringing up an environment with Redis and Tomcat.
+
 ## Redis Data Layout
 
 For a detailed introduction to Redis and how it can be used as a
 datastore for Twitter, take a look at the original Retwis
-[documentation](https://redis.io/topics/twitter-clone). This document
-will describe the RetwisJ data structure without going into details of
-the various Redis features.
+[documentation](https://redis.io/docs/manual/patterns/twitter-clone/).
+This document will describe the RetwisJ data structure without going
+into details of the various Redis features.
 
 To better understand the data layout, it helps to identify the main
 "domain" objects inside RetwisJ. In its current form, RetwisJ allows
@@ -74,7 +64,7 @@ rather the storing data in a certain table at a certain id, we can store
 data directly under a key (using a key pattern of choice for easy
 retrieval) and take advantage of the various Redis key types. Again, for
 more details, see the "Data Layout" section in Retwis
-[docs](https://redis.io/topics/twitter-clone).
+[docs](https://redis.io/docs/manual/patterns/twitter-clone/#data-layout).
 
 The user data (name and password) is stored in a hash (or a map). To
 generate the key for each new user, a dedicated counter is used (called

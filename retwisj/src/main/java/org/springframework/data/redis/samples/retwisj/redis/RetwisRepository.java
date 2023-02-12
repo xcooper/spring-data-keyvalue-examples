@@ -106,7 +106,7 @@ public class RetwisRepository {
 	}
 
 	public List<WebPost> getPosts(String uid, Range range) {
-		return convertPidsToPosts(KeyUtils.posts(uid), range);
+        return convertPidsToPosts(KeyUtils.posts(uid), range);
 	}
 
 	public List<WebPost> getTimeline(String uid, Range range) {
@@ -372,14 +372,24 @@ public class RetwisRepository {
 		return wPost;
 	}
 
-	public static Collection<String> findMentions(String content) {
-		Matcher regexMatcher = MENTION_REGEX.matcher(content);
-		List<String> mentions = new ArrayList<String>(4);
+    public static Collection<String> findMentions(String content) {
+        Matcher regexMatcher = MENTION_REGEX.matcher(content);
+        List<String> mentions = new ArrayList<String>(4);
 
-		while (regexMatcher.find()) {
-			mentions.add(regexMatcher.group().substring(1));
-		}
+        while (regexMatcher.find()) {
+            mentions.add(regexMatcher.group().substring(1));
+        }
 
-		return mentions;
-	}
+        return mentions;
+    }
+
+    public void delPost(String pid) {
+        RedisMap<String, String> post = this.post(pid);
+        String uid = post.get("uid");
+        this.template.delete(KeyUtils.post(pid));
+        RedisList<String> postsOfUser = this.posts(uid);
+        postsOfUser.remove(pid);
+        this.template.delete(KeyUtils.timeline(uid));
+        this.timeline.remove(pid);
+    }
 }

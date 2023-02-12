@@ -185,25 +185,32 @@ public class RetwisController {
 		String user = RetwisSecurity.getName();
 		// invalidate auth
 		retwis.deleteAuth(user);
-		return "redirect:/";
-	}
+        return "redirect:/";
+    }
 
-	@RequestMapping("/status")
-	public String status(String pid, Model model) {
-		checkPost(pid);
-		model.addAttribute("posts", retwis.getPost(pid));
-		return "status";
-	}
+    @RequestMapping("/status")
+    public String status(String pid, Model model) {
+        checkPost(pid);
+        model.addAttribute("posts", retwis.getPost(pid));
+        return "status";
+    }
 
-	private void checkUser(String username) {
-		if (!retwis.isUserValid(username)) {
-			throw new NoSuchDataException(username, true);
-		}
-	}
+    @RequestMapping("/posts/{pid}/delete")
+    private String postsDelete(@PathVariable String pid, Model model) {
+        checkPost(pid);
+        retwis.delPost(pid);
+        return "redirect:/";
+    }
 
-	private void checkPost(String pid) {
-		if (!retwis.isPostValid(pid)) {
-			throw new NoSuchDataException(pid, false);
+    private void checkUser(String username) {
+        if (!retwis.isUserValid(username)) {
+            throw new NoSuchDataException(username, true);
+        }
+    }
+
+    private void checkPost(String pid) {
+        if (!retwis.isPostValid(pid)) {
+            throw new NoSuchDataException(pid, false);
 		}
 	}
 
